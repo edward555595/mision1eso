@@ -8,5 +8,5 @@ window.M1ESO_FIREBASE_CONFIG = {
 };
 
 window.M1ESO_ADMIN_UIDS = [
-  "PEGA_AQUI_UID_PROFESOR"
+  "kMKArWlaUzd4BYrdEYVr6QKpE9U2"
 ];
