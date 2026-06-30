@@ -6,7 +6,10 @@ export const Renderer = {
   screen: document.getElementById("screen"),
 
   toast(msg){
-    const t=document.createElement("div");t.className="toast";t.textContent=msg;document.body.appendChild(t);
+    const t=document.createElement("div");
+    t.className="toast";
+    t.textContent=msg;
+    document.body.appendChild(t);
     setTimeout(()=>t.remove(),2300);
   },
 
@@ -54,11 +57,20 @@ export const Renderer = {
       fb.textContent = "Firebase no está configurado. Revisa firebase/firebase-config.js en GitHub.";
       return;
     }
+
     const fb = document.getElementById("authFeedback");
+
     try{
       fb.style.display = "none";
-      await State.storage.login(document.getElementById("email").value.trim(), document.getElementById("password").value);
-      location.reload();
+
+      await State.storage.login(
+        document.getElementById("email").value.trim(),
+        document.getElementById("password").value
+      );
+
+      await State.storage.loadCloud();
+      Router.home();
+
     }catch(e){
       fb.style.display = "block";
       fb.textContent = "No se pudo iniciar sesión: " + this.authError(e);
@@ -72,14 +84,22 @@ export const Renderer = {
       fb.textContent = "Firebase no está configurado. Revisa firebase/firebase-config.js en GitHub.";
       return;
     }
+
     const fb = document.getElementById("authFeedback");
+
     try{
       fb.style.display = "none";
+
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
+
       if(!email || !password) throw {code:"custom/empty"};
+
       await State.storage.register(email, password);
-      location.reload();
+
+      await State.storage.loadCloud();
+      Router.home();
+
     }catch(e){
       fb.style.display = "block";
       fb.textContent = "No se pudo crear la cuenta: " + this.authError(e);
@@ -95,6 +115,7 @@ export const Renderer = {
     if(code.includes("network-request-failed")) return "problema de conexión.";
     if(code.includes("custom/empty")) return "debes escribir email y contraseña.";
     if(code.includes("unauthorized-domain")) return "el dominio de GitHub Pages no está autorizado en Firebase Authentication.";
+    if(code.includes("invalid-credential")) return "correo o contraseña incorrectos, o el usuario no existe en este proyecto Firebase.";
     return e?.message || "error desconocido.";
   },
 
@@ -185,7 +206,10 @@ export const Renderer = {
   downloadReport(){
     const wp = Engine.weekProgress();
     const blob = new Blob([JSON.stringify({week:State.week.title, progress:wp}, null, 2)],{type:"application/json"});
-    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`informe_${State.week.id}.json`;a.click();
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download=`informe_${State.week.id}.json`;
+    a.click();
   },
 
   async teacher(){
@@ -207,6 +231,7 @@ export const Renderer = {
     }).join("");
     this.screen.className="screen";
     this.screen.innerHTML=`<h2>Panel profesor</h2><table class="table"><tr><th>Alumno</th><th>XP</th><th>Semanas</th><th>Insignias</th></tr>${rows}</table>`;
+    this.nav();
   },
 
   async logout(){
