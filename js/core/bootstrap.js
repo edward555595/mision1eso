@@ -9,8 +9,15 @@ export const Bootstrap = {
     State.firebase = await FirebaseService.init();
     State.course = await CourseService.loadManifest();
     State.storage = new StorageService(State.firebase);
+
     await State.storage.watchAuth();
+
     Router.bind();
-    Router.login();
+
+    if (State.user || State.profile?.role === "local") {
+      Router.home();
+    } else {
+      Router.login();
+    }
   }
 };
