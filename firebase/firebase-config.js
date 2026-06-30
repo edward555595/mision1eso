@@ -1,6 +1,6 @@
 // Configuración Firebase Mision1ESO
 window.M1ESO_FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDsygfFMLwriz6mODG7JaQ9kPXnmdY-5-o",
+ apiKey: "AIzaSyDsygfFMLwriz6m0DG7JaQ9kPXnmdY-5-o",
   authDomain: "mision1eso.firebaseapp.com",
   projectId: "mision1eso",
   storageBucket: "mision1eso.firebasestorage.app",
