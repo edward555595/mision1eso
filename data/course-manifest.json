@@ -1,0 +1,75 @@
+{
+  "courseId": "mision1eso",
+  "title": "Misión 1.º ESO",
+  "version": "4.0.0",
+  "weeks": [
+    {
+      "id": "w1",
+      "number": 1,
+      "title": "Dominando los números",
+      "file": "./data/weeks/week01.json"
+    },
+    {
+      "id": "w2",
+      "number": 2,
+      "title": "Matemáticas de la vida real",
+      "file": "./data/weeks/week02.json"
+    },
+    {
+      "id": "w3",
+      "number": 3,
+      "title": "Bienvenido a la ESO",
+      "file": "./data/weeks/week03.json",
+      "placeholder": true
+    },
+    {
+      "id": "w4",
+      "number": 4,
+      "title": "El poder de las potencias",
+      "file": "./data/weeks/week04.json",
+      "placeholder": true
+    },
+    {
+      "id": "w5",
+      "number": 5,
+      "title": "Divisibilidad",
+      "file": "./data/weeks/week05.json",
+      "placeholder": true
+    },
+    {
+      "id": "w6",
+      "number": 6,
+      "title": "Fracciones nivel ESO",
+      "file": "./data/weeks/week06.json",
+      "placeholder": true
+    },
+    {
+      "id": "w7",
+      "number": 7,
+      "title": "Álgebra",
+      "file": "./data/weeks/week07.json",
+      "placeholder": true
+    },
+    {
+      "id": "w8",
+      "number": 8,
+      "title": "Ecuaciones",
+      "file": "./data/weeks/week08.json",
+      "placeholder": true
+    },
+    {
+      "id": "w9",
+      "number": 9,
+      "title": "Geometría inteligente",
+      "file": "./data/weeks/week09.json",
+      "placeholder": true
+    },
+    {
+      "id": "w10",
+      "number": 10,
+      "title": "Reto final ESO",
+      "file": "./data/weeks/week10.json",
+      "placeholder": true
+    }
+  ]
+}

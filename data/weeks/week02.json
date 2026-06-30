@@ -1,0 +1,88 @@
+{
+  "id": "w2",
+  "number": 2,
+  "title": "Matemáticas de la vida real",
+  "badge": "Estratega de Porcentajes",
+  "xpTarget": 450,
+  "pages": [
+    {
+      "type": "content",
+      "title": "Semana 2 · Matemáticas de la vida real",
+      "html": "<p>Segunda fase: porcentajes, proporcionalidad, descuentos, escalas y unidades.</p>"
+    },
+    {
+      "type": "quiz",
+      "title": "Sesión 1 · Porcentajes",
+      "badge": "Estratega de Porcentajes",
+      "questions": [
+        {
+          "id": "w2_s1_1",
+          "q": "10% de 300 =",
+          "type": "number",
+          "a": 30,
+          "topic": "porcentajes",
+          "xp": 10
+        },
+        {
+          "id": "w2_s1_2",
+          "q": "50% de 80 =",
+          "type": "number",
+          "a": 40,
+          "topic": "porcentajes",
+          "xp": 10
+        },
+        {
+          "id": "w2_s1_3",
+          "q": "25% de 64 =",
+          "type": "number",
+          "a": 16,
+          "topic": "porcentajes",
+          "xp": 10
+        },
+        {
+          "id": "w2_s1_4",
+          "q": "Un balón cuesta 40 € y tiene 25% de descuento. Precio final:",
+          "type": "number",
+          "a": 30,
+          "topic": "descuentos",
+          "xp": 15
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Sesión 2 · Proporcionalidad",
+      "questions": [
+        {
+          "id": "w2_s2_1",
+          "q": "1 camiseta cuesta 15 €. ¿Cuánto cuestan 3?",
+          "type": "number",
+          "a": 45,
+          "topic": "proporcionalidad",
+          "xp": 10
+        },
+        {
+          "id": "w2_s2_2",
+          "q": "2 kg cuestan 6 €. ¿Cuánto cuesta 1 kg?",
+          "type": "number",
+          "a": 3,
+          "topic": "proporcionalidad",
+          "xp": 10
+        },
+        {
+          "id": "w2_s2_3",
+          "q": "8 entrenamientos cuestan 48 €. ¿Cuánto cuestan 5?",
+          "type": "number",
+          "a": 30,
+          "topic": "proporcionalidad",
+          "xp": 15
+        }
+      ]
+    },
+    {
+      "type": "final",
+      "title": "Semana 2 completada",
+      "html": "<p>Has completado la Semana 2.</p>"
+    }
+  ]
+}

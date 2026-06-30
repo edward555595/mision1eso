@@ -1,0 +1,14 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /students/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // Sustituye por el UID del profesor.
+      allow read: if request.auth != null && request.auth.uid in [
+        "PEGA_AQUI_UID_PROFESOR"
+      ];
+    }
+  }
+}

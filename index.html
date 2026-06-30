@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Misión 1.º ESO</title>
+  <link rel="stylesheet" href="./css/app.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div>
+        <h1>🎮 Misión 1.º ESO</h1>
+        <p id="subtitle">Plataforma V4 · GitHub Pages + Firebase</p>
+      </div>
+      <div class="stats">
+        <span>👤 <b id="userLabel">Sin sesión</b></span>
+        <span>⭐ XP: <b id="xpLabel">0</b></span>
+        <span>🏅 Insignias: <b id="badgeLabel">0</b></span>
+      </div>
+    </header>
+
+    <main id="screen" class="screen"></main>
+
+    <footer class="nav">
+      <button id="prevBtn">← Anterior</button>
+      <button id="homeBtn">Inicio</button>
+      <button id="nextBtn">Siguiente →</button>
+    </footer>
+  </div>
+
+  <script src="./firebase/firebase-config.js"></script>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
