@@ -29,25 +29,34 @@ export const Renderer = {
     this.screen.className = "screen hero";
     this.screen.innerHTML = `
       <h2>Acceso</h2>
-      <p>Accede con tu correo y contraseña. Para usar la plataforma es obligatorio identificarse.</p>
+      <p>Accede con tu correo y contraseña. Si tu usuario es profesor, entrarás directamente al panel docente.</p>
       <div class="grid">
         <div class="card">
-          <h3>Alumno</h3>
-          <input id="email" type="email" placeholder="Email">
-          <input id="password" type="password" placeholder="Contraseña">
+          <h3>Alumno / Profesor</h3>
+          <input id="email" type="email" placeholder="Email" autocomplete="username">
+          <div style="display:flex; gap:8px; align-items:center;">
+            <input id="password" type="password" placeholder="Contraseña" autocomplete="current-password" style="flex:1;">
+            <button class="action secondary" type="button" onclick="Renderer.togglePassword()">Ver</button>
+          </div>
           <button class="action" onclick="Renderer.doLogin()">Entrar</button>
           <button class="action secondary" onclick="Renderer.doRegister()">Crear cuenta</button>
           <div id="authFeedback" class="box red" style="display:none"></div>
         </div>
         <div class="card">
           <h3>Profesor</h3>
-          <p>Accede con el usuario cuyo UID esté configurado como administrador.</p>
+          <p>Inicia sesión con el usuario cuyo UID esté configurado como administrador.</p>
           <button class="action secondary" onclick="Renderer.teacher()">Panel profesor</button>
         </div>
       </div>`;
     document.getElementById("prevBtn").disabled = true;
     document.getElementById("nextBtn").disabled = true;
     document.getElementById("homeBtn").disabled = true;
+  },
+
+  togglePassword(){
+    const input = document.getElementById("password");
+    if(!input) return;
+    input.type = input.type === "password" ? "text" : "password";
   },
 
   async doLogin(){
@@ -63,13 +72,19 @@ export const Renderer = {
     try{
       fb.style.display = "none";
 
-      await State.storage.login(
-        document.getElementById("email").value.trim(),
-        document.getElementById("password").value
-      );
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
 
+      if(!email || !password) throw {code:"custom/empty"};
+
+      await State.storage.login(email, password);
       await State.storage.loadCloud();
-      Router.home();
+
+      if(State.firebase.adminUids.includes(State.user.uid)){
+        await Renderer.teacher();
+      } else {
+        Router.home();
+      }
 
     }catch(e){
       fb.style.display = "block";
@@ -96,9 +111,13 @@ export const Renderer = {
       if(!email || !password) throw {code:"custom/empty"};
 
       await State.storage.register(email, password);
-
       await State.storage.loadCloud();
-      Router.home();
+
+      if(State.firebase.adminUids.includes(State.user.uid)){
+        await Renderer.teacher();
+      } else {
+        Router.home();
+      }
 
     }catch(e){
       fb.style.display = "block";
