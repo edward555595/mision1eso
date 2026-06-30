@@ -1,10 +1,10 @@
 window.M1ESO_FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDsygfFMLwriz6m0DG7JaQ9kPXnmdY-5-o",
-  authDomain: "mision1eso.firebaseapp.com",
-  projectId: "mision1eso",
-  storageBucket: "mision1eso.firebasestorage.app",
-  messagingSenderId: "218253528165",
-  appId: "1:218253528165:web:f1a5585c58209274f80a8c"
+  apiKey: "AIzaSyBP0vadLg4PwEdvVqKdd9WqxY6Jqwdzv_I",
+  authDomain: "mision1eso2.firebaseapp.com",
+  projectId: "mision1eso2",
+  storageBucket: "mision1eso2.firebasestorage.app",
+  messagingSenderId: "116136430162",
+  appId: "1:116136430162:web:e1d8caac631c6cd0e5ad8b"
 };
 
 window.M1ESO_ADMIN_UIDS = [
