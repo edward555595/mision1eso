@@ -54,3 +54,18 @@ Si Firebase no está configurado, la plataforma funciona en modo local con `loca
 - La navegación queda protegida: con Firebase configurado, solo usuarios registrados o modo local pueden entrar.
 - Si aparece `auth/unauthorized-domain`, añade tu dominio de GitHub Pages en Firebase:
   Authentication → Settings → Authorized domains.
+
+
+## V4.2 Login obligatorio
+
+Cambios:
+- El modo local queda desactivado en la interfaz.
+- Se restaura la configuración real de Firebase.
+- Si Firebase no carga, la pantalla de acceso muestra error visible.
+- El botón Inicio ya no permite entrar al plan de semanas sin usuario autenticado.
+
+Después de subir esta versión:
+1. Espera 1-3 minutos.
+2. Recarga la web con Ctrl+F5.
+3. Crea cuenta con email y contraseña.
+4. Si Firebase devuelve error `unauthorized-domain`, añade el dominio de GitHub Pages en Firebase Authentication → Settings → Authorized domains.

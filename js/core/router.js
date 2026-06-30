@@ -11,7 +11,7 @@ export const Router = {
   },
   login(){ Renderer.login(); },
   home(){
-    if(State.firebase?.configured && !State.user && State.profile?.role !== "local"){
+    if(State.firebase?.configured && !State.user){
       Renderer.login();
       return;
     }

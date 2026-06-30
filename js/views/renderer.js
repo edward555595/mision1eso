@@ -26,7 +26,7 @@ export const Renderer = {
     this.screen.className = "screen hero";
     this.screen.innerHTML = `
       <h2>Acceso</h2>
-      <p>Usa Firebase para alumnos/profesor o entra en modo local si todavía no lo has configurado.</p>
+      <p>Accede con tu correo y contraseña. Para usar la plataforma es obligatorio identificarse.</p>
       <div class="grid">
         <div class="card">
           <h3>Alumno</h3>
@@ -34,7 +34,6 @@ export const Renderer = {
           <input id="password" type="password" placeholder="Contraseña">
           <button class="action" onclick="Renderer.doLogin()">Entrar</button>
           <button class="action secondary" onclick="Renderer.doRegister()">Crear cuenta</button>
-          <button class="action success" onclick="Renderer.local()">Modo local</button>
           <div id="authFeedback" class="box red" style="display:none"></div>
         </div>
         <div class="card">
@@ -49,7 +48,12 @@ export const Renderer = {
   },
 
   async doLogin(){
-    if(!State.firebase.configured){this.toast("Firebase no configurado. Usa modo local.");return;}
+    if(!State.firebase.configured){
+      const fb = document.getElementById("authFeedback");
+      fb.style.display = "block";
+      fb.textContent = "Firebase no está configurado. Revisa firebase/firebase-config.js en GitHub.";
+      return;
+    }
     const fb = document.getElementById("authFeedback");
     try{
       fb.style.display = "none";
@@ -62,7 +66,12 @@ export const Renderer = {
   },
 
   async doRegister(){
-    if(!State.firebase.configured){this.toast("Firebase no configurado. Usa modo local.");return;}
+    if(!State.firebase.configured){
+      const fb = document.getElementById("authFeedback");
+      fb.style.display = "block";
+      fb.textContent = "Firebase no está configurado. Revisa firebase/firebase-config.js en GitHub.";
+      return;
+    }
     const fb = document.getElementById("authFeedback");
     try{
       fb.style.display = "none";
@@ -90,12 +99,11 @@ export const Renderer = {
   },
 
   async local(){
-    State.profile = {name:"Modo local", role:"local"};
-    Router.home();
+    this.toast("El modo local está desactivado. Debes crear cuenta o iniciar sesión.");
   },
 
   home(){
-    if(State.firebase?.configured && !State.user && State.profile?.role !== "local"){
+    if(State.firebase?.configured && !State.user){
       this.login();
       return;
     }
