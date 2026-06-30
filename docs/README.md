@@ -44,3 +44,13 @@ Motor definitivo para GitHub Pages + Firebase.
 ## Modo local
 
 Si Firebase no está configurado, la plataforma funciona en modo local con `localStorage`.
+
+
+## Correcciones V4.1
+
+- Se impide saltar al plan de semanas pulsando Inicio sin sesión.
+- El botón Crear cuenta muestra errores visibles si Firebase rechaza el registro.
+- La pantalla inicial de una semana incluye botón "Comenzar diagnóstico".
+- La navegación queda protegida: con Firebase configurado, solo usuarios registrados o modo local pueden entrar.
+- Si aparece `auth/unauthorized-domain`, añade tu dominio de GitHub Pages en Firebase:
+  Authentication → Settings → Authorized domains.

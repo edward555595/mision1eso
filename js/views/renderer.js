@@ -35,6 +35,7 @@ export const Renderer = {
           <button class="action" onclick="Renderer.doLogin()">Entrar</button>
           <button class="action secondary" onclick="Renderer.doRegister()">Crear cuenta</button>
           <button class="action success" onclick="Renderer.local()">Modo local</button>
+          <div id="authFeedback" class="box red" style="display:none"></div>
         </div>
         <div class="card">
           <h3>Profesor</h3>
@@ -42,19 +43,50 @@ export const Renderer = {
           <button class="action secondary" onclick="Renderer.teacher()">Panel profesor</button>
         </div>
       </div>`;
-    this.nav();
+    document.getElementById("prevBtn").disabled = true;
+    document.getElementById("nextBtn").disabled = true;
+    document.getElementById("homeBtn").disabled = true;
   },
 
   async doLogin(){
     if(!State.firebase.configured){this.toast("Firebase no configurado. Usa modo local.");return;}
-    await State.storage.login(document.getElementById("email").value, document.getElementById("password").value);
-    location.reload();
+    const fb = document.getElementById("authFeedback");
+    try{
+      fb.style.display = "none";
+      await State.storage.login(document.getElementById("email").value.trim(), document.getElementById("password").value);
+      location.reload();
+    }catch(e){
+      fb.style.display = "block";
+      fb.textContent = "No se pudo iniciar sesión: " + this.authError(e);
+    }
   },
 
   async doRegister(){
     if(!State.firebase.configured){this.toast("Firebase no configurado. Usa modo local.");return;}
-    await State.storage.register(document.getElementById("email").value, document.getElementById("password").value);
-    location.reload();
+    const fb = document.getElementById("authFeedback");
+    try{
+      fb.style.display = "none";
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      if(!email || !password) throw {code:"custom/empty"};
+      await State.storage.register(email, password);
+      location.reload();
+    }catch(e){
+      fb.style.display = "block";
+      fb.textContent = "No se pudo crear la cuenta: " + this.authError(e);
+    }
+  },
+
+  authError(e){
+    const code = e?.code || "";
+    if(code.includes("email-already-in-use")) return "ese correo ya está registrado. Pulsa Entrar.";
+    if(code.includes("invalid-email")) return "el correo no tiene formato válido.";
+    if(code.includes("weak-password")) return "la contraseña debe tener al menos 6 caracteres.";
+    if(code.includes("operation-not-allowed")) return "en Firebase no está habilitado Correo electrónico/contraseña.";
+    if(code.includes("network-request-failed")) return "problema de conexión.";
+    if(code.includes("custom/empty")) return "debes escribir email y contraseña.";
+    if(code.includes("unauthorized-domain")) return "el dominio de GitHub Pages no está autorizado en Firebase Authentication.";
+    return e?.message || "error desconocido.";
   },
 
   async local(){
@@ -63,6 +95,10 @@ export const Renderer = {
   },
 
   home(){
+    if(State.firebase?.configured && !State.user && State.profile?.role !== "local"){
+      this.login();
+      return;
+    }
     this.top();
     this.screen.className = "screen hero";
     const cards = State.course.weeks.map(w=>{
@@ -90,7 +126,10 @@ export const Renderer = {
     const wp = Engine.weekProgress();
     this.screen.className = "screen " + (page.cls || "");
     if(page.type==="content" || page.type==="final"){
-      this.screen.innerHTML = `<h2>${page.title}</h2>${page.html}${page.type==='final'?`
+      const startButton = (page.type === "content" && State.page === 0)
+        ? `<button class="action success" onclick="Router.next()">Comenzar diagnóstico</button>`
+        : "";
+      this.screen.innerHTML = `<h2>${page.title}</h2>${page.html}${startButton}${page.type==='final'?`
         <button class="action" onclick="Renderer.mentor()">Ver panel del mentor</button>
         <button class="action secondary" onclick="Renderer.downloadReport()">Descargar informe</button>
         <div id="mentor"></div>`:''}`;

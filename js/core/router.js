@@ -10,7 +10,15 @@ export const Router = {
     document.getElementById("homeBtn").onclick = ()=>this.home();
   },
   login(){ Renderer.login(); },
-  home(){ State.week=null; State.page=0; Renderer.home(); },
+  home(){
+    if(State.firebase?.configured && !State.user && State.profile?.role !== "local"){
+      Renderer.login();
+      return;
+    }
+    State.week=null;
+    State.page=0;
+    Renderer.home();
+  },
   async loadWeek(id){
     const meta = State.course.weeks.find(w=>w.id===id);
     if(!meta || meta.placeholder || !Engine.isUnlocked(id)) return;
